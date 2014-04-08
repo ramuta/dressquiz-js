@@ -1,6 +1,6 @@
 var dress1 = new Dress(1,
     "Zara",
-    "http://resources.shopstyle.com/pim/7b/28/7b2894c203529b0956cdd6b760629d4a.jpg"
+    "http://bim.shopstyle.com/pim/a6/99/a699983cf803e1a940e9dd792a8056ba_best.jpg"
 );
 
 var ul = document.getElementById("answers");
