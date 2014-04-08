@@ -3,21 +3,38 @@ var dress1 = new Dress(1,
     "http://bim.shopstyle.com/pim/a6/99/a699983cf803e1a940e9dd792a8056ba_best.jpg"
 );
 
-var ul = document.getElementById("answers");
+var dress2 = new Dress(2,
+    "Gucci",
+    "http://bim.shopstyle.com/pim/36/92/36921de820ac2274b689e69159a01be5_best.jpg"
+);
 
-var answerEl = [];
+var ul = document.getElementById("answers");
+var rightDress;
+
 
 window.onload = function() {
-    var img = document.getElementById("dress");
-    img.setAttribute("src", dress1.imageUrl);
+    setNewQuestion(dress1);
 
-    answers = [];
-    answers.push(dress1.brand);
+    var nextButton = document.getElementById("next");
+    nextButton.onclick = function() {
+        rightDress = null;
+        setNewQuestion(dress2);
+    };
+};
+
+function setNewQuestion(dress) {
+    var img = document.getElementById("dress");
+    img.setAttribute("src", dress.imageUrl);
+
+    ul.innerHTML = "";
+
+    var answers = [];
+    answers.push(dress.brand);
 
     brands = shuffle(brands);
 
     for(item in brands) {
-        if (brands[item] != dress1.brand && answers.length < 4) {
+        if (brands[item] != dress.brand && answers.length < 4) {
             answers.push(brands[item]);
         }
     }
@@ -33,18 +50,22 @@ window.onload = function() {
         ul.appendChild(a);
     }
 
-    answerEl = document.getElementsByClassName("dress list-group-item");
+
+    var answerEl = document.getElementsByClassName("dress list-group-item");
+
+    rightDress = dress;
 
     for (var i = 0; i < answerEl.length; i++) {
         answerEl[i].onclick = answerClick;
     }
-};
+}
 
 function answerClick(answer) {
+
     var item = document.getElementById(answer.target.id);
 
     if (!item.disabled) {
-        if (answer.target.innerHTML == dress1.brand) {
+        if (answer.target.innerHTML == rightDress.brand) {
             item.setAttribute("class", "dress list-group-item list-group-item-success");
             console.log("JAAA");
         } else {
