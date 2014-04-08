@@ -28,6 +28,7 @@ window.onload = function() {
         var a = document.createElement("a");
         a.setAttribute("class", "dress list-group-item");
         a.setAttribute("id", answers[answer]);
+        a.disabled = false;
         a.innerHTML = answers[answer];
         ul.appendChild(a);
     }
@@ -52,5 +53,13 @@ function answerClick(answer) {
         }
 
         item.disabled = true;
+    }
+
+    for (var i = 0; i < brands.length; i++) {
+        var answer2 = document.getElementById(brands[i]);
+
+        if (answer2) {
+            answer2.disabled = true;
+        }
     }
 }
