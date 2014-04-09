@@ -1,0 +1,1 @@
+var ss_pid = "get it from ShopStyle API";

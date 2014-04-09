@@ -10,7 +10,9 @@ var productsArray = [];
 
 
 window.onload = function() {
-    callWorker();
+    callWorker();  // call worker to get some images from ShopStyle API
+
+    setInterval(callWorker, 5000);
 
     nextButton.onclick = function() {
         rightDress = null;
@@ -24,11 +26,20 @@ window.onload = function() {
 };
 
 function callWorker() {
-    worker.postMessage("getItems");
+    var arrayLength = dressArray.length;
+    console.log("dressArray: " + arrayLength);
+    console.log("productsArray: " + productsArray.length);
+    if (arrayLength < 12) {
+        console.log("manjši kot 10");
+        worker.postMessage("getItems");
 
-    worker.onmessage = function(event) {
-        parseShopStyleJson(event.data);
-        setNewQuestion(randomDress());
+        worker.onmessage = function(event) {
+            parseShopStyleJson(event.data);
+            console.log(arrayLength);
+            if (arrayLength == 0) {
+                setNewQuestion(randomDress());
+            }
+        }
     }
 }
 
@@ -66,6 +77,7 @@ function setPoints(pointsNum) {
     localStorage.setItem("fashion_points", pointsNum);
     points.innerHTML = pointsNum;
 }
+
 
 function randomDress() {
     dressArray = shuffle(dressArray);
@@ -120,8 +132,10 @@ function setNewQuestion(dress) {
 function answerClick(answer) {
     var item = document.getElementById(answer.target.id);
 
+    /* show the element in DOM that will display the result */
     resultText.style.display = "block";
 
+    /* first check if answering is disabled, then check if answer is correct or not */
     if (!item.disabled) {
         if (answer.target.innerHTML == rightDress.brand) {
             item.setAttribute("class", "dress list-group-item list-group-item-success");
@@ -133,11 +147,19 @@ function answerClick(answer) {
             resultText.innerHTML = "Sorry, wrong answer... :( The right answer is " + rightDress.brand + ".";
         }
 
+        /* delete dress from dressArray */
+        dressArray = dressArray.filter(function(dress){
+            return dress.id !== rightDress.id;
+        });
+
+        /* show button */
         nextButton.style.display = "block";
 
+        /* disable answering for the element in DOM that user clicked on */
         item.disabled = true;
     }
 
+    /* disable answering for other elements in DOM too (the ones that user didn't click on) */
     for (var i = 0; i < brands.length; i++) {
         var answer2 = document.getElementById(brands[i]);
 

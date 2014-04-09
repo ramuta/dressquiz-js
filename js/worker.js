@@ -9,7 +9,7 @@ onmessage = function(event) {
 };
 
 function getItemsJson(category) {
-    var url = "http://api.shopstyle.com/api/v2/products?pid=uid1201-24870601-28&fts="+category+"&offset=0&limit=10"
+    var url = "http://api.shopstyle.com/api/v2/products?pid="+ss_pid+"&fts="+category+"&offset=0&limit=10"
     var request = new XMLHttpRequest();
     request.open("GET", url);
     request.onload = function() {
