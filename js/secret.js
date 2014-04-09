@@ -1,1 +1,1 @@
-var ss_pid = "get it from ShopStyle API!!!";
+var ss_pid = "get it from ShopStyle API (google it)";
