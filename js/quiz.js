@@ -99,7 +99,7 @@ function setNewQuestion(dress) {
 
     ul.innerHTML = "";
 
-
+    answers = [];
     answers.push(dress.brand);
 
     brands = shuffle(brands);
