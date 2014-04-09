@@ -7,6 +7,7 @@ var reset = document.getElementById("reset");
 var worker = new Worker("js/worker.js");
 var dressArray = [];
 var productsArray = [];
+var answers = [];
 
 
 window.onload = function() {
@@ -98,7 +99,7 @@ function setNewQuestion(dress) {
 
     ul.innerHTML = "";
 
-    var answers = [];
+
     answers.push(dress.brand);
 
     brands = shuffle(brands);
@@ -147,6 +148,9 @@ function answerClick(answer) {
             resultText.innerHTML = "Sorry, wrong answer... :( The right answer is " + rightDress.brand + ".";
         }
 
+        /* disable answering for the element in DOM that user clicked on */
+        item.disabled = true;
+
         /* delete dress from dressArray */
         dressArray = dressArray.filter(function(dress){
             return dress.id !== rightDress.id;
@@ -154,14 +158,11 @@ function answerClick(answer) {
 
         /* show button */
         nextButton.style.display = "block";
-
-        /* disable answering for the element in DOM that user clicked on */
-        item.disabled = true;
     }
 
     /* disable answering for other elements in DOM too (the ones that user didn't click on) */
-    for (var i = 0; i < brands.length; i++) {
-        var answer2 = document.getElementById(brands[i]);
+    for (var i = 0; i < answers.length; i++) {
+        var answer2 = document.getElementById(answers[i]);
 
         if (answer2) {
             answer2.disabled = true;
