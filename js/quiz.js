@@ -4,10 +4,13 @@ var nextButton = document.getElementById("next");
 var resultText = document.getElementById("result");
 var points = document.getElementById("points");
 var reset = document.getElementById("reset");
+var worker = new Worker("js/worker.js");
+var dressArray = [];
+var productsArray = [];
 
 
 window.onload = function() {
-    setNewQuestion(randomDress());
+    callWorker();
 
     nextButton.onclick = function() {
         rightDress = null;
@@ -19,6 +22,36 @@ window.onload = function() {
         points.innerHTML = getPoints();
     };
 };
+
+function callWorker() {
+    worker.postMessage("getItems");
+
+    worker.onmessage = function(event) {
+        parseShopStyleJson(event.data);
+        setNewQuestion(randomDress());
+    }
+}
+
+function parseShopStyleJson(responseText) {
+    var json = JSON.parse(responseText);
+    var category = json.metadata.category.name;
+
+    productsArray = json.products;
+    console.log(category);
+
+    for (var i = 0; i < productsArray.length; i++) {
+        if (productsArray[i].brand && productsArray[i].image.sizes.Original.url) {
+            var dress = new Dress(
+                productsArray[i].id,
+                productsArray[i].brand.name,
+                productsArray[i].image.sizes.Original.url,
+                category
+            );
+
+            dressArray.push(dress);
+        }
+    }
+}
 
 function getPoints() {
     if (localStorage.getItem("fashion_points") === null) {
@@ -35,7 +68,6 @@ function setPoints(pointsNum) {
 }
 
 function randomDress() {
-    var dressArray = [dress1, dress2, dress3, dress4, dress5];
     dressArray = shuffle(dressArray);
     return dressArray[0];
 }
@@ -98,7 +130,7 @@ function answerClick(answer) {
             setPoints(parseInt(currentResult) + 1);
         } else {
             item.setAttribute("class", "dress list-group-item list-group-item-danger");
-            resultText.innerHTML = "Sorry, wrong answer... :("
+            resultText.innerHTML = "Sorry, wrong answer... :( The right answer is " + rightDress.brand + ".";
         }
 
         nextButton.style.display = "block";
