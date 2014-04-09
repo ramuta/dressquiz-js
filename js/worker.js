@@ -9,7 +9,8 @@ onmessage = function(event) {
 };
 
 function getItemsJson(category) {
-    var url = "http://api.shopstyle.com/api/v2/products?pid="+ss_pid+"&fts="+category+"&offset=0&limit=10"
+    importScripts("secret2.js"); // This is the file where secret_pid is saved. Get this pid on ShopStyle API.
+    var url = "http://api.shopstyle.com/api/v2/products?pid="+secret_pid+"&fts="+category+"&offset=0&limit=10"
     var request = new XMLHttpRequest();
     request.open("GET", url);
     request.onload = function() {
