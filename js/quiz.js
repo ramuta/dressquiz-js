@@ -2,6 +2,7 @@ var ul = document.getElementById("answers");
 var rightDress;
 var nextButton = document.getElementById("next");
 var resultText = document.getElementById("result");
+var points = document.getElementById("points");
 
 
 window.onload = function() {
@@ -13,6 +14,20 @@ window.onload = function() {
     };
 };
 
+function getPoints() {
+    if (localStorage.getItem("fashion_points") === null) {
+        setPoints(0);
+        return localStorage.getItem("fashion_points");
+    } else {
+        return localStorage.getItem("fashion_points");
+    }
+}
+
+function setPoints(pointsNum) {
+    localStorage.setItem("fashion_points", pointsNum);
+    points.innerHTML = pointsNum;
+}
+
 function randomDress() {
     var dressArray = [dress1, dress2, dress3, dress4, dress5];
     dressArray = shuffle(dressArray);
@@ -22,6 +37,8 @@ function randomDress() {
 function setNewQuestion(dress) {
     nextButton.style.display = "none";
     resultText.style.display = "none";
+
+    points.innerHTML = getPoints();
 
     var img = document.getElementById("dress");
     img.setAttribute("src", dress.imageUrl);
@@ -53,7 +70,6 @@ function setNewQuestion(dress) {
         ul.appendChild(a);
     }
 
-
     var answerEl = document.getElementsByClassName("dress list-group-item");
 
     rightDress = dress;
@@ -72,6 +88,8 @@ function answerClick(answer) {
         if (answer.target.innerHTML == rightDress.brand) {
             item.setAttribute("class", "dress list-group-item list-group-item-success");
             resultText.innerHTML = "Your answer is correct :)"
+            var currentResult = getPoints();
+            setPoints(parseInt(currentResult) + 1);
         } else {
             item.setAttribute("class", "dress list-group-item list-group-item-danger");
             resultText.innerHTML = "Sorry, wrong answer... :("
