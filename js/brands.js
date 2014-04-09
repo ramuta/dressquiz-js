@@ -3,5 +3,6 @@ var brands = [
     "Versace",
     "Gucci",
     "Armani",
-    "Get"
+    "Get",
+    "G by Guess"
 ];
