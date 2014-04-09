@@ -77,7 +77,6 @@ var brands = [
     "Stella McCartney",
     "The Row",
     "The Sak",
-    "Theory",
     "Victoria Beckham",
     "Victoria's Secret",
     "Vigoss",
