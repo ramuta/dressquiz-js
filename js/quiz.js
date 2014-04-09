@@ -3,6 +3,7 @@ var rightDress;
 var nextButton = document.getElementById("next");
 var resultText = document.getElementById("result");
 var points = document.getElementById("points");
+var reset = document.getElementById("reset");
 
 
 window.onload = function() {
@@ -11,6 +12,11 @@ window.onload = function() {
     nextButton.onclick = function() {
         rightDress = null;
         setNewQuestion(randomDress());
+    };
+
+    reset.onclick = function() {
+        localStorage.setItem("fashion_points", 0);
+        points.innerHTML = getPoints();
     };
 };
 
