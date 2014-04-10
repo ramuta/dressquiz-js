@@ -16,6 +16,7 @@ function getItemsJson(category) {
     request.onload = function() {
         if (request.status == 200) {
             var rspns = request.responseText;
+            rspns = rspns.replace(/&/g, '&amp;');
             postMessage(rspns);
         }
     };
