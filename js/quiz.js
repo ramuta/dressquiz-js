@@ -28,15 +28,25 @@ window.onload = function() {
 
 function callWorker() {
     var arrayLength = dressArray.length;
-    console.log("dressArray: " + arrayLength);
-    console.log("productsArray: " + productsArray.length);
+    //console.log("dressArray: " + arrayLength);
+    //console.log("productsArray: " + productsArray.length);
     if (arrayLength < 12) {
-        console.log("manjši kot 10");
-        worker.postMessage("getItems");
+        //console.log("manjši kot 10");
+        if (window["Worker"]) {
+            window.console.debug("je worker");
+            worker.postMessage("getItems");
 
-        worker.onmessage = function(event) {
-            parseShopStyleJson(event.data);
-            console.log(arrayLength);
+            worker.onmessage = function(event) {
+                parseShopStyleJson(event.data);
+                //console.log(arrayLength);
+                if (arrayLength == 0) {
+                    setNewQuestion(randomDress());
+                }
+            }
+        } else {
+            window.console.debug("ni workerja");
+            categories = shuffle(categories);
+            parseShopStyleJson(getItemsJson(categories[0]));
             if (arrayLength == 0) {
                 setNewQuestion(randomDress());
             }
@@ -49,7 +59,7 @@ function parseShopStyleJson(responseText) {
     var category = json.metadata.category.name;
 
     productsArray = json.products;
-    console.log(category);
+    //console.log(category);
 
     for (var i = 0; i < productsArray.length; i++) {
         if (productsArray[i].brand && productsArray[i].image.sizes.Original.url) {
