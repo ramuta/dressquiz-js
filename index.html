@@ -3,6 +3,7 @@
 <head>
     <title>FashionQuiz</title>
     <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/sticky-footer.css">
 </head>
 <body>
     <div class="navbar navbar-default" role="navigation">
@@ -29,7 +30,7 @@
     <div class="container">
         <div class="row">
             <!-- Photo -->
-            <div class="col-sm-5">
+            <div class="col-md-5">
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <img class="media-object" src="img/ajax-loader.gif" id="dress" width="90%">
@@ -38,7 +39,7 @@
             </div>
 
             <!-- Answers -->
-            <div class="col-sm-4">
+            <div class="col-md-4">
                 <li class="list-group-item list-group-item-info"><strong>Choose the right answer</strong></li>
                 <ul class="list-group" id="answers">
 
@@ -55,7 +56,7 @@
             </div>
 
             <!-- Points -->
-            <div class="col-sm-3">
+            <div class="col-md-3">
                 <div class="panel panel-warning">
                     <div class="panel-heading">
                         <h3 class="panel-title">Points</h3>
@@ -67,6 +68,22 @@
                         <span class="label label-danger pull-right" id="reset">reset</span>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer">
+        <div class="container">
+            <div class="text-muted">
+            <p>Built with
+                <a href="http://getbootstrap.com/">Bootstrap</a>
+                and
+                <a href="http://shopsense.shopstyle.com/">ShopStyle API</a>
+
+
+                <a class="pull-right" href="http://github.com/ramuta/dressquiz-js">GitHub</a>
+
+            </p>
             </div>
         </div>
     </div>
