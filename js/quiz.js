@@ -103,6 +103,7 @@ function setNewQuestion(dress) {
 
     var img = document.getElementById("dress");
     img.setAttribute("src", dress.imageUrl);
+    img.setAttribute("width", "90%");
 
     var category = document.getElementById("category");
     category.innerHTML = "Category: " + dress.category;
