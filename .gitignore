@@ -1,4 +1,4 @@
 .idea
 js/secret2.js
-.pyc
+*.pyc
 .DS_Store
