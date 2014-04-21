@@ -1,1 +1,1 @@
-var secret_pid = "your-pid-here" // get your pid at http://shopsense.shopstyle.com/
+var secret_pid = "uid1201-24870601-28" // get your pid at http://shopsense.shopstyle.com/
